@@ -1,45 +1,41 @@
-import { Button } from "@/components/ui/button";
 import FormInput from "@/components/form/formInput";
+import { SubmitButton } from "@/components/form/Buttons";
+import FormContainer from "@/components/form/FormContainer";
+import { createProfileAction } from "@/action/action";
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
-const CreateProfile = () => {
-  const createProfileAction = async (formData: FormData) => {
-    "use server";
-    const firstName = formData.get("firstname") as string;
-    const lastName = formData.get("lastname") as string;
-
-    console.log(firstName);
-    console.log(lastName);
-  };
+const CreateProfile = async () => {
+  const user = await currentUser();
+  if (user?.privateMetadata.hasProfile) redirect("/");
 
   return (
     <section>
       <h1 className="mb-8 text-xl font-bold capitalize">new user</h1>
       <div className="border p-8 rounded-md">
-        <form action={createProfileAction}>
+        <FormContainer action={createProfileAction}>
           <div className="grid md:grid-cols-2 gap-4 mt-4">
             <FormInput
-              name="firstname"
+              name="firstName"
               label="First Name"
               type="text"
               placeholder="First Name"
             />
             <FormInput
-              name="lastname"
+              name="lastName"
               label="Last Name"
               type="text"
               placeholder="Last Name"
             />
             <FormInput
-              name="username"
+              name="userName"
               label="Username"
               type="text"
               placeholder="Username"
             />
           </div>
-          <Button className="mt-2" type="submit" size="lg">
-            Create Profile
-          </Button>
-        </form>
+          <SubmitButton text="Create Profile" className="mt-2" size="lg" />
+        </FormContainer>
       </div>
     </section>
   );
