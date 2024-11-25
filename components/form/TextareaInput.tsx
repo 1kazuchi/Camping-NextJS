@@ -11,7 +11,7 @@ const TextareaInput = ({
   defaultValue?: string;
 }) => {
   return (
-    <div className="mb-4">
+    <div className="mb-4 md:mb-2">
       <Label htmlFor={name} className="capitalize">
         {labelText || name}
       </Label>

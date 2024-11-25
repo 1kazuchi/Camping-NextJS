@@ -14,7 +14,7 @@ const CreateCamp = async () => {
       <h1 className="mb-8 text-xl font-bold capitalize">new camp</h1>
       <div className="border p-8 rounded-md">
         <FormContainer action={createLandmarkAction}>
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 gap-4 mb-2 md:mb-0">
             <FormInput
               name="name"
               label="Landmark Name"
@@ -25,11 +25,12 @@ const CreateCamp = async () => {
             {/* categories */}
             <CategoryInput />
           </div>
-          <div className="gap-4 my-2">
+
+          <div className="gap-4">
             <TextareaInput name="description" />
           </div>
 
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 gap-4 ">
             <FormInput
               name="price"
               label="Price"

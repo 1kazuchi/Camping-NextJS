@@ -1,10 +1,17 @@
+"use client" 
 import { Button } from "@/components/ui/button";
-const HamePage = () => {
+import { useEffect } from "react";
+const HomePage = () => {
+  
+  useEffect(() => {
+    document.title = 'Hame Page';
+  }, []);
+
   return (
     <div>
-      HamePage
+      HomePage
       <Button variant='destructive'>Submit</Button>
     </div>
   );
 };
-export default HamePage;
+export default HomePage;
