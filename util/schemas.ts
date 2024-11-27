@@ -8,12 +8,20 @@ export const profileSchema = z.object({
   userName: z.string().min(2, { message: "username ต้องมากกว่า 2 อักขระ" }),
 });
 
+const validadteImage = () => {
+  const maxFileSize = 1024 * 1024;
+  return z.instanceof(File).refine((file) => {
+    return file.size <= maxFileSize;
+  }, "File size must be lest than 1MB");
+};
+
+export const imageSchema = z.object({
+  image: validadteImage(),
+});
+
 // const tam :string = 'tam'
 
-export const validateWithZod = <T>(
-    schema: ZodSchema<T>, 
-    data: unknown):T => {
-
+export const validateWithZod = <T>(schema: ZodSchema<T>, data: unknown): T => {
   const result = schema.safeParse(data);
   if (!result.success) {
     // code

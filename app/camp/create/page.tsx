@@ -6,6 +6,7 @@ import CategoryInput from "@/components/form/CategoryInput";
 import TextareaInput from "@/components/form/TextareaInput";
 import ProvincesInput from "@/components/form/provincesInput";
 import MapLandmark from "@/components/map/MapLandmark";
+import ImageInput from "@/components/form/ImageInput";
 // import { currentUser } from "@clerk/nextjs/server";
 // import { redirect } from "next/navigation";
 
@@ -40,7 +41,7 @@ const CreateCamp = async () => {
             />
             <ProvincesInput />
           </div>
-          
+          <ImageInput/>
           <MapLandmark/>
 
           <SubmitButton text="Create Landmark" className="mt-2" size="lg" />

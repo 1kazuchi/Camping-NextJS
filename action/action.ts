@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use server";
 
-import { profileSchema, validateWithZod } from "@/util/schemas";
+import { imageSchema, profileSchema, validateWithZod } from "@/util/schemas";
 import { clerkClient, currentUser } from "@clerk/nextjs/server";
 import db from "@/util/db";
 import { redirect } from "next/navigation";
@@ -62,14 +62,17 @@ export const createLandmarkAction = async (
   formData: FormData
 ): Promise<{ message: string }> => {
   try {
-    const user = await currentUser();
-    if (!user) throw new Error("Please Login!!!");
+    const user = await getAuthUser();
 
     const rawData = Object.fromEntries(formData);
-    // const validateField = validateWithZod(profileSchema, rawData);
-    console.log("validated", rawData);
 
-  
+    const file = formData.get("image") as File;
+
+    const validadteFile = validateWithZod(imageSchema, { image: file });
+    
+    console.log("validated", validadteFile);
+    // const validateField = validateWithZod(profileSchema, rawData);
+
     return { message: "Create Landmark Success!!!" };
   } catch (error) {
     // console.log(error);
@@ -77,8 +80,6 @@ export const createLandmarkAction = async (
   }
   // redirect("/");
 };
-
-
 
 // -----------------------v2-----------------------------
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -90,7 +91,6 @@ export const createLandmarkAction = async (
 // import db from "@/util/db";
 // import { redirect } from "next/navigation";
 
-
 // import { regions } from "@/util/provinces";
 
 // const getAuthUser = async () => {
@@ -101,7 +101,6 @@ export const createLandmarkAction = async (
 //   if (!user.privateMetadata.hasProfile) redirect("/profile/create");
 //   return user;
 // };
-
 
 // const renderError = (error: unknown): { message: string } => {
 //   return {
@@ -116,7 +115,7 @@ export const createLandmarkAction = async (
 // ) => {
 //   try {
 //     const user = await getAuthUser();
-    
+
 //     const rawData = Object.fromEntries(formData) as Record<string, string>;
 
 //     // Validate data against schema
@@ -182,5 +181,5 @@ export const createLandmarkAction = async (
 //       return province.PROVINCE_NAME;
 //     }
 //   }
-//   return ''; 
+//   return '';
 // };
