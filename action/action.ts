@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use server";
 
-import { imageSchema, profileSchema, validateWithZod } from "@/util/schemas";
+import { imageSchema, landmarkSchema, profileSchema, validateWithZod } from "@/util/schemas";
 import { clerkClient, currentUser } from "@clerk/nextjs/server";
 import db from "@/util/db";
 import { redirect } from "next/navigation";
@@ -69,8 +69,10 @@ export const createLandmarkAction = async (
     const file = formData.get("image") as File;
 
     const validadteFile = validateWithZod(imageSchema, { image: file });
+    const validadteField = validateWithZod(landmarkSchema,rawData);
     
     console.log("validated", validadteFile);
+    console.log("validated", validadteField);
     // const validateField = validateWithZod(profileSchema, rawData);
 
     return { message: "Create Landmark Success!!!" };

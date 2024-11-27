@@ -4,7 +4,7 @@ import { useEffect } from "react";
 const HomePage = () => {
   
   useEffect(() => {
-    document.title = 'Hame Page';
+    document.title = 'Home Page';
   }, []);
 
   return (
