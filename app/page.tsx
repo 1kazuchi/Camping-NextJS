@@ -1,17 +1,17 @@
-"use client" 
-import { Button } from "@/components/ui/button";
-import { useEffect } from "react";
-const HomePage = () => {
-  
-  useEffect(() => {
-    document.title = 'Home Page';
-  }, []);
 
+import LandmarkContainer from "@/components/home/LandmarkContainer";
+//import { useEffect } from "react";
+const HomePage = () => {
+
+  // useEffect(() => {
+  //   document.title = "Home Page";
+  // }, []);
+
+  //search
   return (
-    <div>
-      HomePage
-      <Button variant='destructive'>Submit</Button>
-    </div>
+    <>
+      <LandmarkContainer />
+    </>
   );
 };
 export default HomePage;

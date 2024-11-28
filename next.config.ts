@@ -9,6 +9,14 @@ const nextConfig: NextConfig = {
     //reactStrictMode: true
   },
   reactStrictMode: false,
+  images:{
+    remotePatterns:[
+      {
+        protocol:'https',
+        hostname:'wthnzljbzubykhqcawwx.supabase.co'
+      }
+    ]
+  }
 };
 
 export default nextConfig;

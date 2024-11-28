@@ -103,6 +103,15 @@ export const createLandmarkAction = async (
   redirect("/");
 };
 
+export const fetchLandmarksData = async () => {
+  const landmarks = db.landmark.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  return landmarks
+};
+
 // -----------------------v2-----------------------------
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
