@@ -15,7 +15,9 @@ export async function uploadFile(image: File) {
 
   const { data, error } = await supabase.storage
     .from(bucket_name)
-    .upload(newName, image);
+    .upload(newName, image,{
+        cacheControl:'3600'
+    });
   if (!data) throw new Error("Upload fialed!");
   return supabase.storage.from(bucket_name).getPublicUrl(newName).data
     .publicUrl;
