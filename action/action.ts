@@ -2,10 +2,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use server";
 
-import { imageSchema, landmarkSchema, profileSchema, validateWithZod } from "@/util/schemas";
+import {
+  imageSchema,
+  landmarkSchema,
+  profileSchema,
+  validateWithZod,
+} from "@/util/schemas";
 import { clerkClient, currentUser } from "@clerk/nextjs/server";
 import db from "@/util/db";
 import { redirect } from "next/navigation";
+import { uploadFile } from "@/util/supabase";
 
 const getAuthUser = async () => {
   // code body
@@ -69,18 +75,32 @@ export const createLandmarkAction = async (
     const file = formData.get("image") as File;
 
     const validadteFile = validateWithZod(imageSchema, { image: file });
-    const validadteField = validateWithZod(landmarkSchema,rawData);
-    
+    const validadteField = validateWithZod(landmarkSchema, rawData);
+
+    //validated data
     console.log("validated", validadteFile);
     console.log("validated", validadteField);
     // const validateField = validateWithZod(profileSchema, rawData);
 
-    return { message: "Create Landmark Success!!!" };
+    //upload supabase
+    const fullPath = await uploadFile(validadteFile.image);
+    console.log("fullPath", fullPath);
+
+    //insert to database
+    await db.landmark.create({
+      data: {
+        ...validadteField,
+        image: fullPath,
+        profileId: user.id,
+      },
+    });
+
+    //return { message: "Create Landmark Success!!!" };
   } catch (error) {
     // console.log(error);
     return renderError(error);
   }
-  // redirect("/");
+  redirect("/");
 };
 
 // -----------------------v2-----------------------------
