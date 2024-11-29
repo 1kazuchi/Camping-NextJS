@@ -78,8 +78,8 @@ export const createLandmarkAction = async (
     const validadteField = validateWithZod(landmarkSchema, rawData);
 
     //validated data
-    console.log("validated", validadteFile);
-    console.log("validated", validadteField);
+    // console.log("validated", validadteFile);
+    // console.log("validated", validadteField);
     // const validateField = validateWithZod(profileSchema, rawData);
 
     //upload supabase

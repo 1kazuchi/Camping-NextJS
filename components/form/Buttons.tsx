@@ -2,7 +2,8 @@
 
 import { useFormStatus } from "react-dom";
 import { Button } from "../ui/button";
-import { LoaderCircle } from "lucide-react";
+import { Heart, LoaderCircle } from "lucide-react";
+import { SignInButton } from "@clerk/nextjs";
 
 type SubmitProps = {
   className?: string;
@@ -33,4 +34,13 @@ export const SubmitButton = ({ className, size, text }: SubmitProps) => {
     </Button>
   );
 };
-export default SubmitButton;
+
+export const SignInCardButton = () => {
+  return (
+    <SignInButton mode="modal">
+      <Button size="icon" variant="outline">
+        <Heart />
+      </Button>
+    </SignInButton>
+  );
+};

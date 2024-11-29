@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { LandmarkCardProps } from "@/util/types";
 import LandmarkRating from "./LandmarkRating";
-import FavoriteButton from "./FavoriteButton";
+import FavoriteToggleButton from "./FavoriteToggleButton";
 
 const LandmarksCard = ({ landmark }: { landmark: LandmarkCardProps }) => {
   const { id, name, description, category, image, province, lat, lng, price } =
@@ -32,7 +32,7 @@ const LandmarksCard = ({ landmark }: { landmark: LandmarkCardProps }) => {
         <p>{province}</p>
       </div>
       <div className="absolute top-5 right-5">
-        <FavoriteButton landmarkId={id}/>
+        <FavoriteToggleButton landmarkId={id}/>
       </div>
     </article>
   );

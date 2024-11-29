@@ -4,8 +4,7 @@ import {LandmarkCardProps} from "@/util/types"
 
 const LandmarkContainer = async () => {
   const landmarks: LandmarkCardProps[] = await fetchLandmarksData();
-  console.log(landmarks);
-
+ 
   return (
     <div>
       <LandmarksList  landmarks = {landmarks}/>
