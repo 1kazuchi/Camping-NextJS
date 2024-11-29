@@ -8,7 +8,7 @@ export type LandmarkCardProps = {
   id: string;
   name: string;
   image: string;
-  description:string
+  description: string;
   category: string;
   province: string;
   lat: number;

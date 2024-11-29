@@ -18,8 +18,17 @@ const LandmarksCard = ({ landmark }: { landmark: LandmarkCardProps }) => {
         />
       </div>
       <div className="flex item-center justify-between">
-        <h3 className="text-sm font-semibold my-2">{name}</h3>
+        <h3 className="text-sm font-semibold my-2">{name.substring(0, 30)}</h3>
         <LandmarkRating />
+      </div>
+      <p className="text-sm mt-1 text-muted-foreground">
+        {description.substring(0, 40)}
+      </p>
+      <div className="mt-1 flex items-center justify-between font-semibold text-sm">
+        <span>
+          THB {price}
+        </span>
+        <p>{province}</p>
       </div>
     </article>
   );
