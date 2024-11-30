@@ -13,7 +13,6 @@ import db from "@/util/db";
 import { redirect } from "next/navigation";
 import { uploadFile } from "@/util/supabase";
 import { revalidatePath } from "next/cache";
-import { profile } from "console";
 
 const getAuthUser = async () => {
   // code body
