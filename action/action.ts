@@ -12,6 +12,7 @@ import { clerkClient, currentUser } from "@clerk/nextjs/server";
 import db from "@/util/db";
 import { redirect } from "next/navigation";
 import { uploadFile } from "@/util/supabase";
+import { revalidatePath } from "next/cache";
 
 const getAuthUser = async () => {
   // code body
@@ -109,7 +110,59 @@ export const fetchLandmarksData = async () => {
       createdAt: "desc",
     },
   });
-  return landmarks
+  return landmarks;
+};
+
+export const fetchFavoriteId = async ({
+  landmarkId,
+}: {
+  landmarkId: string;
+}) => {
+  const user = await getAuthUser();
+  const favorite = await db.favorite.findFirst({
+    where: {
+      landmarkId: landmarkId,
+      profileId: user.id,
+    },
+    select: {
+      id: true,
+    },
+  });
+  return favorite?.id || null;
+};
+
+export const toggleFavoriteAction = async (prevState: {
+  favoriteId: string | null;
+  landmarkId: string;
+  pathName: string;
+}) => {
+  const { favoriteId, landmarkId, pathName } = prevState;
+  const user = await getAuthUser();
+  try {
+    //if favorited go to delete
+    if (favoriteId) {
+      await db.favorite.delete({
+        where: {
+          id: favoriteId,
+        },
+      });
+    } else {
+      await db.favorite.create({
+        data: {
+          landmarkId: landmarkId,
+          profileId: user.id,
+        },
+      });
+    }
+    revalidatePath(pathName);
+    return {
+      message: favoriteId
+        ? "Remove Favorite Success..."
+        : "Add Favorite Success...",
+    };
+  } catch (error) {
+    return renderError(error);
+  }
 };
 
 // -----------------------v2-----------------------------
