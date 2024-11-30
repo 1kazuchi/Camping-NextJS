@@ -13,6 +13,7 @@ import db from "@/util/db";
 import { redirect } from "next/navigation";
 import { uploadFile } from "@/util/supabase";
 import { revalidatePath } from "next/cache";
+import { profile } from "console";
 
 const getAuthUser = async () => {
   // code body
@@ -30,6 +31,7 @@ const renderError = (error: unknown): { message: string } => {
     message: error instanceof Error ? error.message : "An Error!!!",
   };
 };
+
 export const createProfileAction = async (
   prevState: any,
   formData: FormData
@@ -163,6 +165,32 @@ export const toggleFavoriteAction = async (prevState: {
   } catch (error) {
     return renderError(error);
   }
+};
+
+export const fetchFavorites = async () => {
+  const user = await getAuthUser();
+  const favorites = await db.favorite.findMany({
+    where: {
+      profileId: user.id,
+    },
+    select: {
+      landmark: {
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          image: true,
+          category: true,
+          price: true,
+          lat: true,
+          lng: true,
+          province: true,
+        },
+      },
+    },
+  });
+
+  return favorites.map((favorite) => favorite.landmark);
 };
 
 // -----------------------v2-----------------------------
