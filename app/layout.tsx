@@ -1,10 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import Provider from "./Provider";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Kanit } from 'next/font/google'
 
+const kanit = Kanit({
+  weight:'400',
+  subsets:['latin','thai']
+})
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -30,7 +36,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${kanit.className} antialiased`}
         >
           <Provider>
             <Navbar />
