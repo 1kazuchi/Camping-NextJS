@@ -1,6 +1,7 @@
 import { fetchLandmarkDetail } from "@/action/action";
 import FavoriteToggleButton from "@/components/card/FavoriteToggleButton";
 import Breadcrumbs from "@/components/landmark/Breadcrumbs";
+import Description from "@/components/landmark/Description";
 import ImageContainer from "@/components/landmark/ImageContainer";
 import { redirect } from "next/navigation";
 
@@ -31,6 +32,11 @@ const LandmarkDetail = async ({ params }: { params: { id: string } }) => {
       />
 
       {/* detail */}
+      <section>
+        <div>
+          <Description description={landmarkDetail.description}/>
+        </div>
+      </section>
     </section>
   );
 };
