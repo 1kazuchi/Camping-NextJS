@@ -3,6 +3,7 @@ import FavoriteToggleButton from "@/components/card/FavoriteToggleButton";
 import Breadcrumbs from "@/components/landmark/Breadcrumbs";
 import Description from "@/components/landmark/Description";
 import ImageContainer from "@/components/landmark/ImageContainer";
+import ShareButton from "@/components/landmark/ShareButton";
 import MapLandmark from "@/components/map/MapLandmark";
 import { redirect } from "next/navigation";
 
@@ -20,8 +21,11 @@ const LandmarkDetail = async ({ params }: { params: { id: string } }) => {
       <Breadcrumbs name={landmarkDetail.name} />
       <header className="flex justify-between mt-4">
         <h1 className="text-4xl font-bold">{landmarkDetail.name}</h1>
-        <div className="flex gap-x-4 items-center">
-          <span>share</span>
+        <div className="flex gap-x-2 items-center">
+          <ShareButton
+            landmarkId={landmarkDetail.id}
+            name={landmarkDetail.name}
+          />
           <FavoriteToggleButton landmarkId={landmarkDetail.id} />
         </div>
       </header>
