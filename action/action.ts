@@ -107,11 +107,14 @@ export const createLandmarkAction = async (
 
 export const fetchLandmarksData = async ({
   search = "",
+  category,
 }: {
   search?: string;
+  category?: string;
 }) => {
   const landmarks = db.landmark.findMany({
     where: {
+      category,
       OR: [
         { name: { contains: search, mode: "insensitive" } },
         { description: { contains: search, mode: "insensitive" } },
@@ -200,6 +203,16 @@ export const fetchFavorites = async () => {
   });
 
   return favorites.map((favorite) => favorite.landmark);
+};
+
+export const fetchLandmarksHero = async () => {
+  const landmarks = db.landmark.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: 5,
+  });
+  return landmarks;
 };
 
 // -----------------------v2-----------------------------
